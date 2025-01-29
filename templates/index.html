@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tango Puzzle Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Tango Puzzle</h1>
+
+    <!-- Temporizador del juego -->
+    <div id="game-timer">Tiempo: 0 segundos</div>
+
+    <!-- Contenedor del tablero -->
+    <div id="game-board" class="board"></div>
+
+    <!-- Popup de victoria -->
+    <div id="victory-popup" style="display: none;" class="popup">
+        <div class="popup-content">
+            <h2>¡Victoria!</h2>
+            <p id="victory-time">Tiempo total: </p>
+            <button onclick="closeVictoryPopup()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>

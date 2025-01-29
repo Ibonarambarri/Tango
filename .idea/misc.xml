@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="$USER_HOME$/miniconda3" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="f72eb38b-25b1-4cff-82d5-a8f90c6f2bac" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="$USER_HOME$/miniconda3" project-jdk-type="Python SDK" />
+</project>

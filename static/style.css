@@ -1,0 +1,152 @@
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f2f5;
+    margin: 0;
+    height: 100vh;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos del Temporizador */
+#game-timer {
+    font-size: 1.2em;
+    color: #333;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilos del Tablero */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(6, 60px);
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Estilos de las Celdas */
+.cell {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #e0e0e0;
+    position: relative;
+}
+
+/* Estilos para Celdas con Sol y Luna */
+.cell.sun {
+    background-color: #ffebcc;
+    color: #ff8c00;
+    box-shadow: inset 0 0 8px rgba(255, 140, 0, 0.3);
+}
+
+.cell.moon {
+    background-color: #cce0ff;
+    color: #007acc;
+    box-shadow: inset 0 0 8px rgba(0, 122, 204, 0.3);
+}
+
+/* Efecto Hover en las Celdas */
+.cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos de las Restricciones (= y X) */
+.restriction {
+    font-size: 18px;
+    color: #888;
+    position: absolute;
+    pointer-events: none; /* No interfiere con clics en celdas */
+}
+
+/* Estilos del Popup de Victoria */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Oculto por defecto, se muestra al ganar */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+}
+
+.popup-content button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.popup-content button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos del Mensaje de Estado */
+#message {
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #666;
+}
+
+/* Estilos Generales para Botones */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
