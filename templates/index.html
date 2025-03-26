@@ -1,28 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tango Puzzle Game</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Script de Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-TUCODIGO"></script>
 </head>
 <body>
-    <h1>Tango Puzzle</h1>
+    <header>
+        <h1>Tango Puzzle</h1>
+        <div class="game-info">
+            <i class="fas fa-info-circle"></i>
+            <div class="tooltip">
+                <h3>Reglas del juego:</h3>
+                <ul>
+                    <li>Llena la cuadrícula con soles (☀️) y lunas (🌙)</li>
+                    <li>Debe haber igual número de soles y lunas en cada fila y columna</li>
+                    <li>No puede haber más de dos soles o lunas consecutivas en una fila o columna</li>
+                    <li>Respeta las restricciones de igualdad (=) y diferencia (X) entre celdas</li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-    <!-- Temporizador del juego -->
-    <div id="game-timer">Tiempo: 0 segundos</div>
-
-    <!-- Contenedor del tablero -->
-    <div id="game-board" class="board"></div>
-
-    <!-- Popup de victoria -->
-    <div id="victory-popup" style="display: none;" class="popup">
-        <div class="popup-content">
-            <h2>¡Victoria!</h2>
-            <p id="victory-time">Tiempo total: </p>
-            <button onclick="closeVictoryPopup()">Cerrar</button>
+    <!-- Banner de anuncio superior -->
+    <div class="ad-container ad-banner">
+        <div class="ad-placeholder">
+            <!-- Anuncio de Google AdSense -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-TUCODIGO"
+                 data-ad-slot="TUSLOT1"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
+
+    <div class="game-container">
+        <!-- Panel de controles -->
+        <div class="control-panel">
+            <!-- Temporizador del juego -->
+            <div id="game-timer" class="timer">Tiempo: 0 segundos</div>
+
+            <!-- Botones de control -->
+            <div class="button-panel">
+                <button id="new-game" class="btn primary"><i class="fas fa-sync-alt"></i> Nuevo Juego</button>
+                <button id="hint-button" class="btn secondary"><i class="fas fa-lightbulb"></i> Pista</button>
+                <button id="difficulty-toggle" class="btn tertiary" data-difficulty="normal">Dificultad: Normal</button>
+            </div>
+
+            <!-- Mensaje de estado -->
+            <div id="message" class="message"></div>
+        </div>
+
+        <!-- Contenedor del tablero -->
+        <div id="game-board" class="board"></div>
+    </div>
+
+    <!-- Anuncio rectangular entre tablero e instrucciones -->
+    <div class="ad-container ad-rectangle">
+        <div class="ad-placeholder">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:250px"
+                 data-ad-client="ca-pub-TUCODIGO"
+                 data-ad-slot="TUSLOT2"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Instrucciones del juego -->
+    <div class="instructions">
+        <p>Click para alternar entre: vacío → sol → luna → vacío</p>
+        <div class="symbols">
+            <span class="symbol">☀️ Sol</span>
+            <span class="symbol">🌙 Luna</span>
+        </div>
+    </div>
+
+    <!-- Popup de victoria -->
+    <div id="victory-popup" class="popup">
+        <div class="popup-content">
+            <h2>¡Victoria!</h2>
+            <div class="confetti"></div>
+            <p id="victory-time">Tiempo total: </p>
+
+            <!-- Anuncio en el popup de victoria -->
+            <div class="ad-container ad-victory">
+                <div class="ad-placeholder">
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:250px"
+                         data-ad-client="ca-pub-TUCODIGO"
+                         data-ad-slot="TUSLOT3"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <div class="popup-buttons">
+                <button onclick="resetGame()" class="btn primary">Nueva Partida</button>
+                <button onclick="closeVictoryPopup()" class="btn secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anuncio fijo en la parte inferior -->
+    <div class="ad-container ad-footer">
+        <div class="ad-placeholder">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-TUCODIGO"
+                 data-ad-slot="TUSLOT4"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <footer>
+        <p>Tango Puzzle - Un juego de lógica basado en el juego Tango de LinkedIn</p>
+    </footer>
+
+    <!-- Script para anuncios intersticiales -->
+    <script>
+        let interstitialAdShown = false;
+
+        function showInterstitialAd() {
+            if (!interstitialAdShown) {
+                // Crear un elemento div para el anuncio intersticial
+                const adContainer = document.createElement('div');
+                adContainer.className = 'interstitial-ad';
+
+                const adContent = document.createElement('div');
+                adContent.className = 'interstitial-content';
+
+                // Botón para cerrar el anuncio después de 5 segundos
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'Cerrar en 5s';
+                closeButton.disabled = true;
+
+                // Anuncio de Google AdSense
+                const adElement = document.createElement('ins');
+                adElement.className = 'adsbygoogle';
+                adElement.style.display = 'block';
+                adElement.setAttribute('data-ad-client', 'ca-pub-TUCODIGO');
+                adElement.setAttribute('data-ad-slot', 'TUSLOT5');
+                adElement.setAttribute('data-ad-format', 'auto');
+
+                adContent.appendChild(closeButton);
+                adContent.appendChild(adElement);
+                adContainer.appendChild(adContent);
+                document.body.appendChild(adContainer);
+
+                // Inicializar el anuncio
+                (adsbygoogle = window.adsbygoogle || []).push({});
+
+                // Temporizador para habilitar el botón de cierre
+                let countdown = 5;
+                const timer = setInterval(() => {
+                    countdown--;
+                    closeButton.textContent = `Cerrar en ${countdown}s`;
+
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        closeButton.textContent = 'Cerrar';
+                        closeButton.disabled = false;
+
+                        closeButton.addEventListener('click', () => {
+                            adContainer.remove();
+                        });
+                    }
+                }, 1000);
+
+                interstitialAdShown = true;
+
+                // Resetear el estado después de un tiempo
+                setTimeout(() => {
+                    interstitialAdShown = false;
+                }, 300000); // 5 minutos
+            }
+        }
+
+        // Mostrar anuncio intersticial después de ganar o después de cierto tiempo de juego
+        function showVictoryPopup() {
+            const endTime = Date.now();
+            const elapsedTime = Math.floor((endTime - startTime) / 1000);
+            document.getElementById('victory-time').innerText = `Tiempo total: ${elapsedTime} segundos`;
+
+            // Mostrar anuncio intersticial antes del popup de victoria
+            showInterstitialAd();
+
+            // Esperar un poco antes de mostrar el popup de victoria
+            setTimeout(() => {
+                const popup = document.getElementById('victory-popup');
+                popup.style.display = 'flex';
+            }, 1000);
+        }
+    </script>
 
     <script src="{{ url_for('static', filename='game.js') }}"></script>
 </body>
